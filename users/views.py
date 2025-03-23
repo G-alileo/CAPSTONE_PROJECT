@@ -1,9 +1,9 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets, status
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer, UserSerializer
 from django.contrib.auth import get_user_model
 
 # Create your views here.
@@ -27,3 +27,13 @@ class LoginView(APIView):
             return Response({"token": token.key})
         return Response({"error": "Invalid Credentials"}, status=400)
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAdminUser]  # Only admins can manage users
+
+    def destroy(self, request, *args, **kwargs):
+        """Allow admins to delete users"""
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({"message": "User deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
