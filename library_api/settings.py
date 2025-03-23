@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'users',
     'books',
     'transactions',
@@ -70,6 +71,13 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",  # Use Django's token authentication
+        "rest_framework.authentication.SessionAuthentication",  # use django's session authentication
+    ],
+}
 
 WSGI_APPLICATION = 'library_api.wsgi.application'
 
