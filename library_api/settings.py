@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'users.apps.UserConfig',
+    'users.apps.UsersConfig',
     'books.apps.BooksConfig',
-    'transactions.apps.TransactionConfig',
+    'transactions.apps.TransactionsConfig',
 ]
 
 MIDDLEWARE = [
