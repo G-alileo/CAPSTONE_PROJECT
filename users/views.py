@@ -37,3 +37,8 @@ class UserViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response({"message": "User deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+    # def get_queryset(self):
+    #     """Ensure admins can view all users"""
+    #     if self.request.user.is_staff:  # Only return users if the requester is an admin
+    #         return User.objects.all()
+    #     return User.objects.none()  # Return empty list if not admin
