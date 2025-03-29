@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
-from .models import Book
-from .serializers import BookSerializer
+from rest_framework import viewsets, permissions, status
+from .models import Book, Transaction
+from .serializers import BookSerializer, TransactionSerializer
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from django.utils.timezone import now
 
 # Create your views here.
 
@@ -14,3 +17,42 @@ class BookViewSet(viewsets.ModelViewSet):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
             return [permissions.IsAdminUser()]  # Only admins can modify books
         return [permissions.AllowAny()]  # Anyone can view books
+    
+class TransactionViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
+
+    def checkout_book(self, request, book_id):
+        """Allows a user to check out a book if available"""
+        book = Book.objects.get(id=book_id)
+
+        if book.available_copies <= 0:
+            return Response({"error": "Book is not available"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Check if user already has an active transaction for this book
+        if Transaction.objects.filter(user=request.user, book=book, return_date__isnull=True).exists():
+            return Response({"error": "You have already checked out this book"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create a new transaction
+        transaction = Transaction.objects.create(user=request.user, book=book)
+        book.available_copies -= 1
+        book.save()
+
+        return Response(TransactionSerializer(transaction).data, status=status.HTTP_201_CREATED)
+
+    def return_book(self, request, book_id):
+        """Allows a user to return a book"""
+        try:
+            transaction = Transaction.objects.get(user=request.user, book_id=book_id, return_date__isnull=True)
+        except Transaction.DoesNotExist:
+            return Response({"error": "No active checkout found for this book"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Mark as returned
+        transaction.return_date = now()
+        transaction.save()
+
+        # Increase book copies
+        book = transaction.book
+        book.available_copies += 1
+        book.save()
+
+        return Response({"message": "Book returned successfully"}, status=status.HTTP_200_OK)
