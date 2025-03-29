@@ -25,7 +25,7 @@ class TransactionViewSet(viewsets.ViewSet):
         """Allows a user to check out a book if available"""
         book = Book.objects.get(id=book_id)
 
-        if book.available_copies <= 0:
+        if book.copies_available  <= 0:
             return Response({"error": "Book is not available"}, status=status.HTTP_400_BAD_REQUEST)
 
         # Check if user already has an active transaction for this book
@@ -34,7 +34,7 @@ class TransactionViewSet(viewsets.ViewSet):
 
         # Create a new transaction
         transaction = Transaction.objects.create(user=request.user, book=book)
-        book.available_copies -= 1
+        book.copies_available -= 1
         book.save()
 
         return Response(TransactionSerializer(transaction).data, status=status.HTTP_201_CREATED)
@@ -52,7 +52,7 @@ class TransactionViewSet(viewsets.ViewSet):
 
         # Increase book copies
         book = transaction.book
-        book.available_copies += 1
+        book.copies_available  += 1
         book.save()
 
         return Response({"message": "Book returned successfully"}, status=status.HTTP_200_OK)
