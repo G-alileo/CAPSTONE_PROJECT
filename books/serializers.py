@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book
+from .models import Book, Transaction
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,3 +11,8 @@ class BookSerializer(serializers.ModelSerializer):
         if Book.objects.filter(isbn=value).exists():
             raise serializers.ValidationError("A book with this ISBN already exists.")
         return value
+
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = ['id', 'user', 'book', 'checkout_date', 'return_date']
