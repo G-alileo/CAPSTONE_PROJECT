@@ -5,6 +5,7 @@ from .serializers import BookSerializer, TransactionSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.utils.timezone import now
+from django.db.models import Q
 
 # Create your views here.
 
@@ -18,6 +19,24 @@ class BookViewSet(viewsets.ModelViewSet):
             return [permissions.IsAdminUser()]  # Only admins can modify books
         return [permissions.AllowAny()]  # Anyone can view books
     
+    def get_queryset(self):
+        """Retrieve books with optional filtering"""
+        queryset = Book.objects.all()
+        title = self.request.query_params.get('title', None)
+        author = self.request.query_params.get('author', None)
+        available = self.request.query_params.get('available', None)
+
+        if title:
+            queryset = queryset.filter(Q(title__icontains=title))
+        if author:
+            queryset = queryset.filter(Q(author__icontains=author))
+        if available:
+            if available.lower() == 'true':
+                queryset = queryset.filter(copies_available__gt=0)
+            elif available.lower() == 'false':
+                queryset = queryset.filter(copies_available=0)
+
+        return queryset
 class TransactionViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
 
