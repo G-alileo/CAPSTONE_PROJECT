@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'users.apps.UsersConfig',
     'books.apps.BooksConfig',
-    # 'transactions.apps.TransactionsConfig',
 ]
 
 MIDDLEWARE = [
