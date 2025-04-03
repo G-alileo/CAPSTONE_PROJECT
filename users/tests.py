@@ -17,17 +17,17 @@ class UserTests(APITestCase):
         self.users_url = "/api/users/users/"
 
     def test_register_user_successfully(self):
-        data = {"username": "testuser", "email": "test@example.com", "password": "Test@1234", "password2": "Test@1234"}
+        data = {"username": "testuser", "email": "test@example.com", "password": "Test@1234", "confirm_password": "Test@1234"}
         response = self.client.post(self.register_url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_register_user_password_mismatch(self):
-        data = {"username": "testuser", "email": "test@example.com", "password": "Test@1234", "password2": "WrongPass"}
+        data = {"username": "testuser", "email": "test@example.com", "password": "Test@1234", "confirm_password": "WrongPass"}
         response = self.client.post(self.register_url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_register_user_duplicate_username(self):
-        data = {"username": "user", "email": "newuser@example.com", "password": "Test@1234", "password2": "Test@1234"}
+        data = {"username": "user", "email": "newuser@example.com", "password": "Test@1234", "confirm_password": "Test@1234"}
         response = self.client.post(self.register_url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
