@@ -99,7 +99,6 @@ python manage.py runserver
 |               | DELETE | `/api/books/{book_id}/`     | Admin: Delete a book |
 | **Transactions** | POST  | `/api/checkout/{book_id}/` | Checkout a book |
 |               | POST   | `/api/return/{book_id}/`    | Return a book |
-|               | GET    | `/api/transactions/`        | Get user transactions |
 | **Users**      | GET    | `/api/users/{user_id}/`    | Admin: Get user details |
 |               | DELETE | `/api/users/{user_id}/`    | Admin: Delete a user |
 
