@@ -89,18 +89,19 @@ python manage.py runserver
 
 | Feature         | Method | Endpoint                     | Description |
 |----------------|--------|-----------------------------|-------------|
-| **Auth**       | POST   | `/api/register/`            | User registration |
-|               | POST   | `/api/login/`               | User login |
+| **Auth**       | POST   | `/api/users/register/`            | User registration |
+|               | POST   | `/api/users/login/`               | User login |
 | **Books**      | GET    | `/api/books/`               | List all books |
-|               | GET    | `/api/books/?title=atomic&author=john` | Search books by title or author |
+|               | GET    | `/api/books/?title=Atomic Habits&author=John doe` | Search books by title or author |
 |               | POST   | `/api/books/`               | Admin: Create a book |
 |               | GET    | `/api/books/{book_id}/`     | Retrieve a book |
 |               | PUT    | `/api/books/{book_id}/`     | Admin: Update a book |
 |               | DELETE | `/api/books/{book_id}/`     | Admin: Delete a book |
 | **Transactions** | POST  | `/api/checkout/{book_id}/` | Checkout a book |
 |               | POST   | `/api/return/{book_id}/`    | Return a book |
-| **Users**      | GET    | `/api/users/{user_id}/`    | Admin: Get user details |
-|               | DELETE | `/api/users/{user_id}/`    | Admin: Delete a user |
+| **Users**      | GET    | `/api/users/users/`    | Admin: Get user details |
+|                | GET    | `/api/users/users/{user_id}/`    | Admin: Get user details |
+|               | DELETE | `/api/users/users/{user_id}/`    | Admin: Delete a user |
 
 ---
 
