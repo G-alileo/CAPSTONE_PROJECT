@@ -61,8 +61,8 @@ class Transaction(models.Model):
 You can filter books using query parameters:
 
 ```
-GET /api/books/?title=Harry Potter
-GET /api/books/?author=J.K. Rowling
+GET /api/books/?title=Atomic Habits
+GET /api/books/?author=john doe
 GET /api/books/?available=true
 ```
 
