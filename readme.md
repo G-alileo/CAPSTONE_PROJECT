@@ -92,7 +92,7 @@ python manage.py runserver
 | **Auth**       | POST   | `/api/register/`            | User registration |
 |               | POST   | `/api/login/`               | User login |
 | **Books**      | GET    | `/api/books/`               | List all books |
-|               | GET    | `/api/books/?title=harry&author=rowling` | Search books by title or author |
+|               | GET    | `/api/books/?title=atomic&author=john` | Search books by title or author |
 |               | POST   | `/api/books/`               | Admin: Create a book |
 |               | GET    | `/api/books/{book_id}/`     | Retrieve a book |
 |               | PUT    | `/api/books/{book_id}/`     | Admin: Update a book |
