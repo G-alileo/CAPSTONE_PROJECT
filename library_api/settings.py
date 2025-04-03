@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# SECURE_BROWSER_XSS_FILTER = True
+# X_FRAME_OPTIONS = 'DENY'
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_SSL_REDIRECT = True  
+
+
 
 # Application definition
 
@@ -41,7 +48,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'users.apps.UsersConfig',
     'books.apps.BooksConfig',
-    'transactions.apps.TransactionsConfig',
+    # 'transactions.apps.TransactionsConfig',
 ]
 
 MIDDLEWARE = [
@@ -97,7 +104,7 @@ DATABASES = {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'library_db',
 #         'USER': 'your_db_user',
-#         'PASSWORD': '28387327',
+#         'PASSWORD': '',
 #         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
@@ -147,3 +154,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.User"
 
+# STATIC FILES CONFIGURATION
+STATIC_URL = '/static/'  
+
+# Collect all static files into this directory when running `collectstatic`
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
