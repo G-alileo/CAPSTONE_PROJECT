@@ -85,6 +85,8 @@ python manage.py runserver
 
 ## 🔗 API Endpoints
 
+- **Base : ip: http://127.0.0.1:8000/**
+
 | Feature         | Method | Endpoint                     | Description |
 |----------------|--------|-----------------------------|-------------|
 | **Auth**       | POST   | `/api/register/`            | User registration |
