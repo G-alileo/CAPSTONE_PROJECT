@@ -108,7 +108,7 @@ python manage.py runserver
 
 - **Backend:** Django, Django REST Framework
 - **Authentication:** Token-based authentication
-- **Database:** sqlite3 (Production), PostgreSQL (Future Expansion)
+- **Database:** sqlite3 (Production)
 
 ---
 
