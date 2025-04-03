@@ -9,8 +9,6 @@ This is a **Django REST Framework (DRF) API** for a **Library Management System 
 - **Borrow & Return Books** (Transaction System)
 - **Manage Users** (Admin Controls)
 
-
-
 ---
 
 ## 🚀 Features
@@ -85,117 +83,23 @@ python manage.py runserver
 
 ---
 
-## 🔑 Authentication
+## 🔗 API Endpoints
 
-### 1️⃣ Register
-
-**Endpoint:** `/api/register/`
-
-```json
-{
-    "username": "testuser",
-    "password": "securepassword"
-}
-```
-
-**Response:**
-
-```json
-{
-    "token": "abcd1234token"
-}
-```
-
-### 2️⃣ Login
-
-**Endpoint:** `/api/login/`
-
-```json
-{
-    "username": "testuser",
-    "password": "securepassword"
-}
-```
-
-**Response:**
-
-```json
-{
-    "token": "abcd1234token"
-}
-```
-
----
-
-## 📚 Books API
-
-### 1️⃣ Get All Books
-
-**Endpoint:** `GET /api/books/`
-
-### 2️⃣ Search Books by Title or Author
-
-**Endpoint:** `GET /api/books/?title=harry&author=rowling`
-
-### 3️⃣ Admin: Create a Book
-
-**Endpoint:** `POST /api/books/`
-
-```json
-{
-    "title": "Django for Beginners",
-    "author": "William S. Vincent",
-    "isbn": "1234567890123",
-    "published_date": "2022-01-01",
-    "copies_available": 5
-}
-```
-
-### 4️⃣ Get a Single Book
-
-**Endpoint:** `GET /api/books/{book_id}/`
-
-### 5️⃣ Admin: Update a Book
-
-**Endpoint:** `PUT /api/books/{book_id}/`
-
-### 6️⃣ Admin: Delete a Book
-
-**Endpoint:** `DELETE /api/books/{book_id}/`
-
----
-
-## 📖 Transactions API
-
-### 1️⃣ Checkout a Book
-
-**Endpoint:** `POST /api/checkout/{book_id}/`
-
-```json
-{
-    "user_id": 1
-}
-```
-
-### 2️⃣ Return a Book
-
-**Endpoint:** `POST /api/return/{book_id}/`
-
-### 3️⃣ Get User Transactions
-
-**Endpoint:** `GET /api/transactions/`
-
----
-
-## 👤 User Management API
-
-### 1️⃣ Get User Details (Admin only)
-
-**Endpoint:** `GET /api/users/{user_id}/`
-
-### 2️⃣ Admin: Delete a User
-
-**Endpoint:** `DELETE /api/users/{user_id}/`
+| Feature         | Method | Endpoint                     | Description |
+|----------------|--------|-----------------------------|-------------|
+| **Auth**       | POST   | `/api/register/`            | User registration |
+|               | POST   | `/api/login/`               | User login |
+| **Books**      | GET    | `/api/books/`               | List all books |
+|               | GET    | `/api/books/?title=harry&author=rowling` | Search books by title or author |
+|               | POST   | `/api/books/`               | Admin: Create a book |
+|               | GET    | `/api/books/{book_id}/`     | Retrieve a book |
+|               | PUT    | `/api/books/{book_id}/`     | Admin: Update a book |
+|               | DELETE | `/api/books/{book_id}/`     | Admin: Delete a book |
+| **Transactions** | POST  | `/api/checkout/{book_id}/` | Checkout a book |
+|               | POST   | `/api/return/{book_id}/`    | Return a book |
+|               | GET    | `/api/transactions/`        | Get user transactions |
+| **Users**      | GET    | `/api/users/{user_id}/`    | Admin: Get user details |
+|               | DELETE | `/api/users/{user_id}/`    | Admin: Delete a user |
 
 ---
 
@@ -203,9 +107,7 @@ python manage.py runserver
 
 - **Backend:** Django, Django REST Framework
 - **Authentication:** Token-based authentication
-- **Database:** sqlite3(Production),  (
-
-
+- **Database:** sqlite3 (Production), PostgreSQL (Future Expansion)
 
 ---
 
@@ -216,3 +118,4 @@ This project is **MIT Licensed**.
 ---
 
 ##
+
